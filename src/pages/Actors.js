@@ -1,41 +1,31 @@
-import { useEffect, useState } from "react";
-import NavBar from "../components/NavBar";
+// src/pages/Actors.js
+import { useEffect, useState } from 'react';
+import NavBar from '../components/NavBar';
 
+const Actors = () => {
+  const [actors, setActors] = useState([]);
 
-function Actors() {
-  const [actors,setActors] = useState([])
-  useEffect(()=>{
-    fetch("http://localhost:3000/actors")
-    .then(res=>res.json())
-    .then(data=>setActors(data))
-  },[])
-  if(!actors[0]){
-    return(
-    <>
-    <NavBar/>
-    <h1>Actors Page</h1>
-    <p>Loading...</p>
-    </>) 
-  }
+  useEffect(() => {
+    fetch('/actors')
+      .then(response => response.json())
+      .then(data => setActors(data));
+  }, []);
+
   return (
-    <>
-      <header>
-        <NavBar/>
-      </header>
-      <main>
-        <h1>Actors Page</h1>
-        {actors.map(item=>{
-          return <article key={item.id}>
-             <h2>{item.name}</h2>
-            <ul>
-              {item.movies.map((movie,index)=>{
-                return <li key={index}>{movie}</li>
-              })}
-            </ul>
-          </article>
-        })}
-      </main>
-    </>
+    <div>
+      <NavBar />
+      <h1>Actors Page</h1>
+      {actors.map(actor => (
+        <article key={actor.id}>
+          <h2>{actor.name}</h2>
+          <ul>
+            {actor.movies.map((movie, index) => (
+              <li key={index}>{movie}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
   );
 };
 
