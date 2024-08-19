@@ -1,32 +1,44 @@
-// src/pages/Directors.js
-import React, { useState, useEffect } from 'react';
-import NavBar from '../components/NavBar';
+import { useEffect, useState } from "react";
+import NavBar from "../components/NavBar";
 
 function Directors() {
-  const [directors, setDirectors] = useState([]);
+  const [directors,setDirectors] = useState([])
+  useEffect(()=>{
+    fetch("http://localhost:3000/directors")
+    .then(res=>res.json())
+    .then(data=>setDirectors(data))
+  },[])
 
-  useEffect(() => {
-    fetch('http://localhost:4000/directors')
-      .then(resp => resp.json())
-      .then(data => setDirectors(data));
-  }, []);
-
-  return (
-    <div>
-      <NavBar />
+ 
+  if(!directors[0]){
+    return (
+    <>
+      <NavBar/>
       <h1>Directors Page</h1>
-      {directors.map(director => (
-        <article key={director.id}>
-          <h2>{director.name}</h2>
-          <ul>
-            {director.movies.map((movie, index) => (
-              <li key={index}>{movie}</li>
-            ))}
-          </ul>
-        </article>
-      ))}
-    </div>
+      <p>Loading...</p>
+    </>)
+    
+  }
+  return (
+    <>
+      <header>
+        <NavBar/>
+      </header>
+      <main>
+        <h1>Directors Page</h1>
+        {directors.map(item=>{
+          return <article key={item.id}>
+            <h2>{item.name}</h2>
+            <ul>
+              {item.movies.map((movie,index)=>{
+                return <li key={index}>{movie}</li>
+              })}
+            </ul>
+          </article>
+        })}
+      </main>
+    </>
   );
-}
+};
 
 export default Directors;

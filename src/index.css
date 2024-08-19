@@ -1,12 +1,25 @@
-span {
-    margin: 0px 2px;
-}
-
-article {
-    border: solid 1px;
-    border-radius: 5px;
-    margin: 5px;
-    max-width: 350px;
-    box-sizing: border-box;
-    padding: 5px;
-}
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  h1 {
+    color: #333;
+  }
+  
+  h2 {
+    color: #555;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  article {
+    margin-bottom: 20px;
+  }
+  
+  .navbar {
+    margin-bottom: 20px;
+  }
+  

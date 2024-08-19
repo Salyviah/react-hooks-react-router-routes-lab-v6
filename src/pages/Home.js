@@ -1,20 +1,27 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import NavBar from "../components/NavBar";
 import MovieCard from "../components/MovieCard";
 
 function Home() {
-  // Example: You might want to map over an array of movies to display them
-  const movies = [{ id: 1, title: "Inception" }, { id: 2, title: "Interstellar" }];
-  
+  const [movieList,setMovieList] = useState([])
+  useEffect(()=>{
+    fetch("http://localhost:3000/movies")
+    .then(res=>res.json())
+    .then(data=>setMovieList(data))
+  },[])
   return (
-    <div>
-      <h1>Home Page</h1>
-      <div>
-        {movies.map(movie => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
-      </div>
-    </div>
+    <>
+      <header>
+        <NavBar/>
+      </header>
+      <main>
+        <h1>Home Page</h1>
+        {movieList.map(movie=>{
+          return <MovieCard key={movie.id} id={movie.id} title={movie.title} />
+        })}
+      </main>
+    </>
   );
-}
+};
 
 export default Home;
